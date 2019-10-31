@@ -25,9 +25,16 @@
 {% do sources_yaml.append('') %}
 {% do sources_yaml.append('sources:') %}
 {% do sources_yaml.append('  - name: ' ~ schema_name | lower) %}
+{% do sources_yaml.append('    description: "todo"') %}
+{% do sources_yaml.append('') %}
+{% do sources_yaml.append('    quoting:') %}
+{% do sources_yaml.append('      database: false') %}
+{% do sources_yaml.append('      schema: false') %}
+{% do sources_yaml.append('      identifier: false') %}
 
 {% if database_name != target.database %}
 {% do sources_yaml.append('    database: ' ~ database_name | lower) %}
+{% do sources_yaml.append('    schema: ' ~ schema_name | lower) %}
 {% endif %}
 
 {% do sources_yaml.append('    tables:') %}
@@ -36,6 +43,8 @@
 
 {% for table in tables %}
     {% do sources_yaml.append('      - name: ' ~ table | lower ) %}
+    {% do sources_yaml.append('        description: "todo add description for ' ~ table | lower  ~ '"' )%}
+    {% do sources_yaml.append('        identifier: ' ~ table | lower ) %}
 
     {% if generate_columns %}
     {% do sources_yaml.append('        columns:') %}
@@ -50,6 +59,7 @@
 
         {% for column in columns %}
             {% do sources_yaml.append('          - name: ' ~ column.name | lower ) %}
+            {% do sources_yaml.append('            description: todo add description for ' ~ column.name | lower ) %}
         {% endfor %}
             {% do sources_yaml.append('') %}
 
